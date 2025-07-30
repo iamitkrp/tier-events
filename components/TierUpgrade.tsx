@@ -23,7 +23,6 @@ export default function TierUpgrade() {
       // Update user metadata to simulate tier upgrade
       await user.update({
         unsafeMetadata: {
-          ...user.unsafeMetadata,
           tier: nextTier,
         },
       });

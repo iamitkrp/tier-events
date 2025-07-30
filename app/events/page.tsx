@@ -15,7 +15,7 @@ export default async function EventsPage() {
   }
 
   // Get user tier from metadata (default to 'free' if not set)
-  const userTier = (user.publicMetadata?.tier as Tier) || 'free';
+  const userTier = (user.unsafeMetadata?.tier as Tier) || 'free';
   
   // Get allowed tiers for this user
   const allowedTiers = getAllowedTiers(userTier);

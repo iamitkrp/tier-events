@@ -10,7 +10,7 @@ export default function TierUpgrade() {
   const { user } = useUser();
   const [isUpgrading, setIsUpgrading] = useState(false);
   
-  const currentTier = (user?.publicMetadata?.tier as Tier) || 'free';
+  const currentTier = (user?.unsafeMetadata?.tier as Tier) || 'free';
   const currentIndex = TIER_HIERARCHY.indexOf(currentTier);
   const nextTier = TIER_HIERARCHY[currentIndex + 1];
   

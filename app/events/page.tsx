@@ -30,15 +30,14 @@ export default async function EventsPage() {
   if (error) {
     console.error('Error fetching events:', error);
     return (
-      <div className="min-h-screen bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="min-h-screen bg-[var(--cuberto-bg-main)]">
+        <div className="cuberto-container py-12">
           <div className="text-center">
-            <h1 className="text-2xl font-bold text-gray-900 mb-4">Error Loading Events</h1>
-            <p className="text-gray-600">There was an error loading the events. Please try again later.</p>
-            <Link 
-              href="/" 
-              className="mt-4 inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition-colors"
-            >
+            <h1 className="mb-4">Error Loading Events</h1>
+            <p className="text-[var(--cuberto-text-secondary)] mb-8">
+              There was an error loading the events. Please try again later.
+            </p>
+            <Link href="/" className="cb-btn_more3">
               Go Home
             </Link>
           </div>
@@ -47,120 +46,217 @@ export default async function EventsPage() {
     );
   }
 
+  const getTierGradient = (tier: Tier) => {
+    switch (tier) {
+      case 'free':
+        return 'from-[var(--cuberto-light-gray)] to-[var(--cuberto-border-light)]';
+      case 'silver':
+        return 'from-[var(--cuberto-accent-blue)] to-[var(--cuberto-accent-purple)]';
+      case 'gold':
+        return 'from-[var(--cuberto-accent-purple)] to-[var(--cuberto-accent-teal)]';
+      case 'platinum':
+        return 'from-[var(--cuberto-accent-teal)] to-[var(--cuberto-accent-orange)]';
+      default:
+        return 'from-[var(--cuberto-light-gray)] to-[var(--cuberto-border-light)]';
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
-            <div>
-              <Link href="/" className="text-2xl font-bold text-gray-900 hover:text-blue-600 transition-colors">
-                Tier Events
-              </Link>
-            </div>
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2">
-                <span className="text-sm text-gray-600">Your tier:</span>
-                <span className={`px-3 py-1 rounded-full text-white text-sm font-medium ${
-                  userTier === 'free' ? 'bg-gray-500' :
-                  userTier === 'silver' ? 'bg-blue-500' :
-                  userTier === 'gold' ? 'bg-yellow-500' :
-                  'bg-purple-500'
-                }`}>
-                  {userTier.toUpperCase()}
-                </span>
-              </div>
+    <div className="min-h-screen bg-[var(--cuberto-bg-main)]">
+      {/* Navigation */}
+      <nav className="cuberto-nav">
+        <Link href="/" className="cuberto-logo">
+          <span className="text-gradient font-bold">Tier Events</span>
+        </Link>
+        <div className="cuberto-menu">
+          <div className="flex items-center space-x-6">
+            <Link href="/" className="nav-link">home</Link>
+            <div className="flex items-center space-x-3">
+              <span className="text-[var(--cuberto-text-secondary)] text-sm">Your tier:</span>
+              <span className={`px-4 py-2 rounded-full text-white text-sm font-medium bg-gradient-to-r ${getTierGradient(userTier)} shadow-lg`}>
+                {userTier.toUpperCase()}
+              </span>
             </div>
           </div>
         </div>
-      </header>
+      </nav>
 
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Page Title */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Available Events
-          </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Discover events available for your tier. You have access to {allowedTiers.join(', ')} tier events.
-          </p>
-        </div>
-
-        {/* Tier Upgrade Section */}
-        <div className="mb-8">
-          <TierUpgrade />
-        </div>
-
-        {/* Events Grid */}
-        {events && events.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {events.map((event: Event) => (
-              <EventCard key={event.id} event={event} />
-            ))}
+      {/* Hero Section with improved design */}
+      <section className="pt-32 pb-20 bg-gradient-to-br from-[var(--cuberto-bg-main)] to-[var(--cuberto-bg-section)]">
+        <div className="cuberto-container">
+          <div className="text-center animate-fade-in-up">
+            <div className="inline-block px-4 py-2 rounded-full bg-[var(--cuberto-accent-blue)] bg-opacity-10 text-[var(--cuberto-accent-blue)] text-sm font-medium mb-6">
+              🎯 Your Personal Event Dashboard
+            </div>
+            <h1 className="mb-6">
+              Your <span className="text-gradient">{userTier.charAt(0).toUpperCase() + userTier.slice(1)}</span> Events
+            </h1>
+            <p className="text-[var(--cuberto-text-secondary)] max-w-3xl mx-auto text-xl">
+              Welcome to your personalized event hub. You have access to <span className="font-semibold text-[var(--cuberto-text-primary)]">{allowedTiers.join(', ')}</span> tier events.
+              {userTier !== 'platinum' && ' Upgrade your tier to unlock even more exclusive content!'}
+            </p>
           </div>
-        ) : (
-          <div className="text-center py-12">
-            <div className="max-w-md mx-auto">
-              <div className="mb-4">
-                <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3a4 4 0 118 0v4m-4 7h8m-8 0a4 4 0 00-4 4v2a4 4 0 004 4h8a4 4 0 004-4v-2a4 4 0 00-4-4m-8 0V7" />
-                </svg>
-              </div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">No Events Available</h3>
-              <p className="text-gray-600 mb-6">
-                There are currently no events available for your tier. Check back later or upgrade your tier to access more events.
-              </p>
-              <div className="space-y-2">
-                <Link 
-                  href="/" 
-                  className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md transition-colors"
-                >
-                  Go Home
-                </Link>
-              </div>
+        </div>
+      </section>
+
+      {/* Tier Upgrade Section - Only show if not platinum */}
+      {userTier !== 'platinum' && (
+        <section className="py-16 bg-[var(--cuberto-bg-section)]">
+          <div className="cuberto-container">
+            <div className="animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+              <TierUpgrade />
             </div>
           </div>
-        )}
+        </section>
+      )}
 
-        {/* Tier Information */}
-        <div className="mt-16 bg-white rounded-lg shadow-sm p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Tier Benefits</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-gray-600 font-bold text-sm">FREE</span>
+      {/* Events Section with better layout */}
+      <section className="py-20 bg-[var(--cuberto-bg-main)]">
+        <div className="cuberto-container">
+          {events && events.length > 0 ? (
+            <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+              <div className="flex items-center justify-between mb-12">
+                <div>
+                  <h2 className="mb-4">Available Events</h2>
+                  <p className="text-[var(--cuberto-text-secondary)]">
+                    {events.length} event{events.length !== 1 ? 's' : ''} available for your tier
+                  </p>
+                </div>
+                <div className="hidden md:flex items-center space-x-4">
+                  <div className="text-sm text-[var(--cuberto-text-muted)]">Filter by:</div>
+                  <div className="flex space-x-2">
+                    {allowedTiers.map((tier) => (
+                      <span key={tier} className={`px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r ${getTierGradient(tier)} text-white`}>
+                        {tier.toUpperCase()}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Free Tier</h3>
-              <p className="text-sm text-gray-600">Basic events and webinars</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {events.map((event: Event, index: number) => (
+                  <div key={event.id} style={{ animationDelay: `${0.1 * (index + 1)}s` }}>
+                    <EventCard event={event} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="text-center py-20 animate-fade-in-up">
+              <div className="max-w-lg mx-auto">
+                <div className="w-24 h-24 bg-gradient-to-br from-[var(--cuberto-accent-blue)] to-[var(--cuberto-accent-purple)] rounded-full flex items-center justify-center mx-auto mb-8">
+                  <svg className="w-12 h-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3a4 4 0 118 0v4m-4 7h8m-8 0a4 4 0 00-4 4v2a4 4 0 004 4h8a4 4 0 004-4v-2a4 4 0 00-4-4m-8 0V7" />
+                  </svg>
+                </div>
+                <h3 className="mb-6 text-2xl">No Events Available</h3>
+                <p className="text-[var(--cuberto-text-secondary)] mb-8 text-lg">
+                  There are currently no events available for your tier. Check back later or upgrade your tier to access more exclusive events.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Link href="/" className="cb-btn_more3">
+                    Go Home
+                  </Link>
+                  {userTier !== 'platinum' && (
+                    <button className="cb-btn_more2">
+                      Upgrade Tier
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Enhanced Tier Benefits Section */}
+      <section className="py-20 bg-[var(--cuberto-bg-section)]">
+        <div className="cuberto-container">
+          <div className="text-center mb-16 animate-fade-in-up">
+            <h2 className="mb-6">Membership <span className="text-gradient">Benefits</span></h2>
+            <p className="text-[var(--cuberto-text-secondary)] text-xl max-w-2xl mx-auto">
+              Each tier provides cumulative access to all lower-tier benefits plus exclusive perks
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className={`cuberto-card p-8 text-center animate-float-slow ${userTier === 'free' ? 'border-2 border-[var(--cuberto-accent-blue)]' : ''}`}>
+              <div className={`w-20 h-20 bg-gradient-to-br ${getTierGradient('free')} rounded-full flex items-center justify-center mx-auto mb-6`}>
+                <span className="text-[var(--cuberto-text-primary)] font-bold text-lg">FREE</span>
+              </div>
+              <h3 className="mb-4">Free Tier</h3>
+              <ul className="text-sm text-[var(--cuberto-text-secondary)] space-y-2">
+                <li>✓ Weekly webinars</li>
+                <li>✓ Community access</li>
+                <li>✓ Basic resources</li>
+                <li>✓ Event recordings</li>
+              </ul>
+              {userTier === 'free' && (
+                <div className="mt-4 text-[var(--cuberto-accent-blue)] text-sm font-medium">
+                  Your current tier
+                </div>
+              )}
             </div>
             
-            <div className="text-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-blue-600 font-bold text-sm">SILVER</span>
+            <div className={`cuberto-card p-8 text-center animate-float-slow2 ${userTier === 'silver' ? 'border-2 border-[var(--cuberto-accent-purple)]' : ''}`}>
+              <div className={`w-20 h-20 bg-gradient-to-br ${getTierGradient('silver')} rounded-full flex items-center justify-center mx-auto mb-6`}>
+                <span className="text-white font-bold text-lg">SILVER</span>
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Silver Tier</h3>
-              <p className="text-sm text-gray-600">Premium talks + Free events</p>
+              <h3 className="mb-4">Silver Tier</h3>
+              <ul className="text-sm text-[var(--cuberto-text-secondary)] space-y-2">
+                <li>✓ Everything in Free</li>
+                <li>✓ Premium workshops</li>
+                <li>✓ Networking events</li>
+                <li>✓ Priority support</li>
+              </ul>
+              {userTier === 'silver' && (
+                <div className="mt-4 text-[var(--cuberto-accent-purple)] text-sm font-medium">
+                  Your current tier
+                </div>
+              )}
             </div>
             
-            <div className="text-center">
-              <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-yellow-600 font-bold text-sm">GOLD</span>
+            <div className={`cuberto-card p-8 text-center animate-float-slow3 ${userTier === 'gold' ? 'border-2 border-[var(--cuberto-accent-teal)]' : ''}`}>
+              <div className={`w-20 h-20 bg-gradient-to-br ${getTierGradient('gold')} rounded-full flex items-center justify-center mx-auto mb-6`}>
+                <span className="text-white font-bold text-lg">GOLD</span>
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Gold Tier</h3>
-              <p className="text-sm text-gray-600">Masterclasses + Silver + Free</p>
+              <h3 className="mb-4">Gold Tier</h3>
+              <ul className="text-sm text-[var(--cuberto-text-secondary)] space-y-2">
+                <li>✓ Everything in Silver</li>
+                <li>✓ Masterclasses</li>
+                <li>✓ 1-on-1 sessions</li>
+                <li>✓ Exclusive resources</li>
+              </ul>
+              {userTier === 'gold' && (
+                <div className="mt-4 text-[var(--cuberto-accent-teal)] text-sm font-medium">
+                  Your current tier
+                </div>
+              )}
             </div>
             
-            <div className="text-center">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-purple-600 font-bold text-sm">PLAT</span>
+            <div className={`cuberto-card p-8 text-center animate-pulse-slow relative overflow-hidden ${userTier === 'platinum' ? 'border-2 border-[var(--cuberto-accent-orange)]' : ''}`}>
+              <div className="absolute top-0 right-0 bg-[var(--cuberto-accent-orange)] text-white text-xs px-3 py-1 rounded-bl-lg">
+                VIP
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Platinum Tier</h3>
-              <p className="text-sm text-gray-600">VIP summits + All tiers</p>
+              <div className={`w-20 h-20 bg-gradient-to-br ${getTierGradient('platinum')} rounded-full flex items-center justify-center mx-auto mb-6`}>
+                <span className="text-white font-bold text-lg">PLAT</span>
+              </div>
+              <h3 className="mb-4">Platinum Tier</h3>
+              <ul className="text-sm text-[var(--cuberto-text-secondary)] space-y-2">
+                <li>✓ Everything in Gold</li>
+                <li>✓ VIP summits</li>
+                <li>✓ Private events</li>
+                <li>✓ Direct expert access</li>
+              </ul>
+              {userTier === 'platinum' && (
+                <div className="mt-4 text-[var(--cuberto-accent-orange)] text-sm font-medium">
+                  Your current tier
+                </div>
+              )}
             </div>
           </div>
         </div>
-      </main>
+      </section>
     </div>
   );
 }

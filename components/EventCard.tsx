@@ -20,7 +20,7 @@ export default function EventCard({ event }: EventCardProps) {
   });
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow duration-300">
+    <div className="cuberto-card overflow-hidden animate-fade-in-up hover:scale-105 transition-all duration-300">
       {/* Event Image */}
       <div className="relative h-48 w-full">
         <Image
@@ -32,11 +32,7 @@ export default function EventCard({ event }: EventCardProps) {
         />
         {/* Tier Badge */}
         <div className="absolute top-3 right-3">
-          <span
-            className={`inline-block px-3 py-1 rounded-full text-white text-sm font-medium ${getTierColor(
-              event.tier
-            )}`}
-          >
+          <span className="inline-block px-3 py-1 rounded-full text-[var(--cuberto-text-primary)] text-sm font-medium glass-effect">
             {event.tier.toUpperCase()}
           </span>
         </div>
@@ -45,18 +41,18 @@ export default function EventCard({ event }: EventCardProps) {
       {/* Event Content */}
       <div className="p-6">
         {/* Event Title */}
-        <h3 className="text-xl font-semibold text-gray-900 mb-2 line-clamp-2">
+        <h3 className="text-xl font-semibold text-[var(--cuberto-text-primary)] mb-2 line-clamp-2">
           {event.title}
         </h3>
 
         {/* Event Description */}
-        <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+        <p className="text-[var(--cuberto-text-secondary)] text-sm mb-4 line-clamp-3">
           {event.description}
         </p>
 
         {/* Event Date and Time */}
         <div className="space-y-1">
-          <div className="flex items-center text-sm text-gray-500">
+          <div className="flex items-center text-sm text-[var(--cuberto-text-muted)]">
             <svg
               className="w-4 h-4 mr-2"
               fill="none"
@@ -72,7 +68,7 @@ export default function EventCard({ event }: EventCardProps) {
             </svg>
             <span>{formattedDate}</span>
           </div>
-          <div className="flex items-center text-sm text-gray-500">
+          <div className="flex items-center text-sm text-[var(--cuberto-text-muted)]">
             <svg
               className="w-4 h-4 mr-2"
               fill="none"
@@ -92,7 +88,7 @@ export default function EventCard({ event }: EventCardProps) {
 
         {/* Action Button */}
         <div className="mt-6">
-          <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md font-medium transition-colors duration-200">
+          <button className="w-full cb-btn_more3">
             View Details
           </button>
         </div>

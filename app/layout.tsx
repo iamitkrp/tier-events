@@ -1,17 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import { ClerkProvider } from '@clerk/nextjs';
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Tier Events",
@@ -25,11 +14,11 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          {children}
+      <html lang="en" className="scroll-smooth">
+        <body className="antialiased bg-[var(--cuberto-bg-main)] text-[var(--cuberto-text-primary)] font-[var(--cuberto-font-matter-reg)] overflow-x-hidden">
+          <div className="min-h-screen bg-[var(--cuberto-bg-main)]">
+            {children}
+          </div>
         </body>
       </html>
     </ClerkProvider>

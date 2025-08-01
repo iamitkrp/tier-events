@@ -50,7 +50,7 @@
   --cuberto-white: #ffffff;
   --cuberto-dark-gray: #f8f9fa;
   --cuberto-light-gray: #e9ecef;
-  --cuberto-bg-main: #f5f5dc; /* Changed to beige */
+  --cuberto-bg-main: transparent; /* Video background */
   --cuberto-bg-section: #f8f9fa;
   --cuberto-bg-accent: #f1f3f4;
   --cuberto-text-primary: #212529;
@@ -85,29 +85,31 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Noise Background Effect */
-body::before {
-  content: '';
+/* Video Background */
+.video-background {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: 
-    radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-    radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-    radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
-    radial-gradient(circle at 10% 90%, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-    radial-gradient(circle at 90% 10%, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
-  background-size: 50px 50px, 30px 30px, 20px 20px, 40px 40px, 25px 25px;
-  background-position: 0 0, 15px 15px, 10px 10px, 20px 20px, 5px 5px;
-  pointer-events: none;
   z-index: -1;
-  opacity: 0.6;
+  overflow: hidden;
+}
+
+.video-background video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
 }
 
 body {
-  background: var(--cuberto-bg-main);
+  background: transparent;
   color: var(--cuberto-text-primary);
   font-family: var(--cuberto-font-matter-reg);
   font-size: 1.6vw;

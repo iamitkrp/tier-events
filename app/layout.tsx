@@ -15,8 +15,21 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" className="scroll-smooth">
-        <body className="antialiased bg-[var(--cuberto-bg-main)] text-[var(--cuberto-text-primary)] font-[var(--cuberto-font-matter-reg)] overflow-x-hidden">
-          <div className="min-h-screen bg-[var(--cuberto-bg-main)]">
+        <body className="antialiased text-[var(--cuberto-text-primary)] font-[var(--cuberto-font-matter-reg)] overflow-x-hidden">
+          {/* Video Background */}
+          <div className="video-background">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-cover"
+            >
+              <source src="/bg/ribbon.mp4" type="video/mp4" />
+            </video>
+          </div>
+          
+          <div className="min-h-screen relative">
             {children}
           </div>
         </body>

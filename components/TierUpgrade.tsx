@@ -37,104 +37,73 @@ export default function TierUpgrade() {
     }
   };
 
-  const getTierGradient = (tier: Tier) => {
+  const getTierColor = (tier: Tier) => {
     switch (tier) {
+      case 'free':
+        return 'bg-gray-100 text-gray-800 border-gray-200';
       case 'silver':
-        return 'from-[var(--cuberto-accent-blue)] to-[var(--cuberto-accent-purple)]';
+        return 'bg-blue-100 text-blue-800 border-blue-200';
       case 'gold':
-        return 'from-[var(--cuberto-accent-purple)] to-[var(--cuberto-accent-teal)]';
+        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
       case 'platinum':
-        return 'from-[var(--cuberto-accent-teal)] to-[var(--cuberto-accent-orange)]';
+        return 'bg-purple-100 text-purple-800 border-purple-200';
       default:
-        return 'from-[var(--cuberto-accent-blue)] to-[var(--cuberto-accent-purple)]';
+        return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
 
   // Don't show upgrade button if already at highest tier
   if (!nextTier) {
     return (
-      <div className="cuberto-card p-8 bg-gradient-to-br from-[var(--cuberto-bg-main)] to-[var(--cuberto-bg-section)] border-2 border-[var(--cuberto-accent-orange)] animate-pulse-slow">
-        <div className="text-center">
-          <div className="w-20 h-20 bg-gradient-to-br from-[var(--cuberto-accent-teal)] to-[var(--cuberto-accent-orange)] rounded-full flex items-center justify-center mx-auto mb-6 animate-wiggle">
-            <svg className="h-10 w-10 text-white" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-            </svg>
-          </div>
-          <h3 className="text-[var(--cuberto-text-primary)] mb-4">🎉 Maximum Tier Achieved!</h3>
-          <p className="text-[var(--cuberto-text-secondary)] text-lg">
-            Congratulations! You have <span className="text-gradient font-semibold">Platinum access</span> and can view all exclusive events and premium content.
-          </p>
-          <div className="mt-6 flex justify-center space-x-4 text-sm text-[var(--cuberto-text-muted)]">
-            <span>✓ All Events</span>
-            <span>✓ VIP Access</span>
-            <span>✓ Premium Support</span>
-          </div>
+      <div className="text-center">
+        <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg className="h-6 w-6 text-green-600" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+          </svg>
         </div>
+        <h3 className="text-lg font-medium text-gray-900 mb-2">Maximum Tier Achieved!</h3>
+        <p className="text-gray-600">
+          You have <span className="font-semibold text-purple-600">Platinum access</span> and can view all exclusive events.
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="cuberto-card p-8 bg-gradient-to-br from-[var(--cuberto-bg-main)] to-[var(--cuberto-bg-section)] animate-fade-in-up">
-      <div className="text-center">
-        <div className="flex items-center justify-center space-x-4 mb-6">
-          <div className="w-16 h-16 bg-gradient-to-br from-[var(--cuberto-light-gray)] to-[var(--cuberto-border-light)] rounded-full flex items-center justify-center">
-            <span className="text-[var(--cuberto-text-primary)] font-bold text-sm">{currentTier.toUpperCase()}</span>
-          </div>
-          <div className="flex flex-col items-center">
-            <svg className="w-8 h-8 text-[var(--cuberto-accent-blue)] mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
-            <span className="text-xs text-[var(--cuberto-text-muted)]">upgrade</span>
-          </div>
-          <div className={`w-16 h-16 bg-gradient-to-br ${getTierGradient(nextTier)} rounded-full flex items-center justify-center animate-pulse-slow`}>
-            <span className="text-white font-bold text-sm">{nextTier.toUpperCase()}</span>
-          </div>
-        </div>
-        
-        <h3 className="mb-4 text-2xl">
-          Upgrade to <span className="text-gradient">{nextTier.charAt(0).toUpperCase() + nextTier.slice(1)}</span>
+    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="flex-1">
+        <h3 className="text-lg font-medium text-gray-900 mb-1">
+          Upgrade to {nextTier.charAt(0).toUpperCase() + nextTier.slice(1)}
         </h3>
-        
-        <p className="text-[var(--cuberto-text-secondary)] mb-8 text-lg">
-          Unlock exclusive events and premium content with your next tier upgrade.
-          Get access to more networking opportunities and specialized workshops.
+        <p className="text-sm text-gray-600">
+          Unlock more exclusive events and premium content
         </p>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 text-sm">
-          <div className="flex items-center justify-center space-x-2 text-[var(--cuberto-text-secondary)]">
-            <svg className="w-4 h-4 text-[var(--cuberto-accent-blue)]" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-            </svg>
-            <span>More Events</span>
-          </div>
-          <div className="flex items-center justify-center space-x-2 text-[var(--cuberto-text-secondary)]">
-            <svg className="w-4 h-4 text-[var(--cuberto-accent-purple)]" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-            </svg>
-            <span>Premium Content</span>
-          </div>
-          <div className="flex items-center justify-center space-x-2 text-[var(--cuberto-text-secondary)]">
-            <svg className="w-4 h-4 text-[var(--cuberto-accent-teal)]" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-            </svg>
-            <span>Priority Access</span>
-          </div>
+      </div>
+      
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+        <div className="flex items-center gap-2">
+          <span className={`px-3 py-1 rounded-full text-xs font-medium border ${getTierColor(currentTier)}`}>
+            {currentTier.toUpperCase()}
+          </span>
+          <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+          <span className={`px-3 py-1 rounded-full text-xs font-medium border ${getTierColor(nextTier)}`}>
+            {nextTier.toUpperCase()}
+          </span>
         </div>
         
         <button
           onClick={handleUpgrade}
           disabled={isUpgrading}
-          className={`cb-btn_more2 ${
-            isUpgrading
-              ? 'opacity-50 cursor-not-allowed'
-              : ''
+          className={`px-6 py-2 bg-gray-900 text-white text-sm font-medium rounded-md hover:bg-gray-800 transition-colors duration-200 whitespace-nowrap ${
+            isUpgrading ? 'opacity-50 cursor-not-allowed' : ''
           }`}
         >
           {isUpgrading ? (
             <>
               <svg
-                className="animate-spin -ml-1 mr-3 h-5 w-5"
+                className="animate-spin -ml-1 mr-2 h-4 w-4"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -159,10 +128,6 @@ export default function TierUpgrade() {
             `Upgrade to ${nextTier.charAt(0).toUpperCase() + nextTier.slice(1)}`
           )}
         </button>
-        
-        <p className="text-[var(--cuberto-text-muted)] text-sm mt-6">
-          * This is a simulation - no actual payment required
-        </p>
       </div>
     </div>
   );

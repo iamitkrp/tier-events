@@ -14,36 +14,44 @@ export default function Home() {
       {/* Main Layout with Divider */}
       <div className="lg:min-h-screen lg:flex lg:flex-row">
         {/* Content Section - Full screen on mobile, half width on desktop */}
-        <div className="min-h-screen lg:w-1/2 bg-gradient-to-br from-[var(--cuberto-bg-main)] to-[var(--cuberto-bg-section)] relative flex items-center justify-center px-6 py-16 lg:px-0 lg:py-0">
-          <div className="cuberto-container w-full">
-            <div className="animate-fade-in-up max-w-2xl mx-auto lg:mx-0 text-center lg:text-left">
+        <div className="min-h-screen lg:w-1/2 bg-gradient-to-br from-[var(--cuberto-bg-main)] to-[var(--cuberto-bg-section)] relative flex flex-col justify-center px-6 py-12 lg:items-center lg:px-0 lg:py-0">
+          <div className="cuberto-container w-full flex-1 flex flex-col justify-center">
+            <div className="animate-fade-in-up max-w-2xl mx-auto lg:mx-0 text-center lg:text-left space-y-20 sm:space-y-24 lg:space-y-12">
               
               {/* Title section */}
-              <h1 className="leading-tight text-4xl sm:text-5xl lg:text-[7vw] mb-20">
-                Unlock Exclusive{' '}
-                <span className="block text-gradient">Tier-Based Events</span>
-              </h1>
+              <div className="space-y-4 sm:space-y-6">
+                <h1 className="leading-tight font-light" style={{ fontSize: '4rem', lineHeight: '1.1' }}>
+                  Unlock Exclusive
+                </h1>
+                <h1 className="leading-tight font-light" style={{ fontSize: '4rem', lineHeight: '1.1' }}>
+                  <span className="text-gradient">Tier-Based Events</span>
+                </h1>
+              </div>
               
               {/* Description section */}
-              <p className="text-[var(--cuberto-text-secondary)] text-lg lg:text-xl max-w-lg mx-auto lg:mx-0 mb-20">
-                Discover premium events, masterclasses, and networking opportunities tailored to your membership tier.
-              </p>
+              <div className="px-2 sm:px-0">
+                <p className="text-[var(--cuberto-text-secondary)] max-w-lg mx-auto lg:mx-0 leading-relaxed lg:leading-relaxed" style={{ fontSize: '2rem', lineHeight: '1.4' }}>
+                  Discover premium events, masterclasses, and networking opportunities tailored to your membership tier.
+                </p>
+              </div>
               
               {/* Button section */}
-              <div className="flex justify-center lg:justify-start">
-                <SignedOut>
-                  <SignUpButton mode="modal">
-                    <button className="cb-btn_more3">
-                      Sign Up or Login
-                    </button>
-                  </SignUpButton>
-                </SignedOut>
-                
-                <SignedIn>
-                  <Link href="/events" className="cb-btn_more3">
-                    Browse Events
-                  </Link>
-                </SignedIn>
+              <div className="pt-12 sm:pt-16 lg:pt-4">
+                <div className="flex justify-center lg:justify-start">
+                  <SignedOut>
+                    <SignUpButton mode="modal">
+                      <button className="cb-btn_more3 w-full sm:w-auto min-w-[280px] py-4 px-8 text-lg font-medium">
+                        Sign Up or Login
+                      </button>
+                    </SignUpButton>
+                  </SignedOut>
+                  
+                  <SignedIn>
+                    <Link href="/events" className="cb-btn_more3 w-full sm:w-auto min-w-[280px] py-4 px-8 text-lg font-medium">
+                      Browse Events
+                    </Link>
+                  </SignedIn>
+                </div>
               </div>
               
             </div>

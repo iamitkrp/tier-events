@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 import EventCard from '@/components/EventCard';
 import TierUpgrade from '@/components/TierUpgrade';
 import Link from 'next/link';
+import { SignedIn, UserButton } from '@clerk/nextjs';
 
 export default async function EventsPage() {
   // Get the current user
@@ -63,26 +64,15 @@ export default async function EventsPage() {
 
   return (
     <div className="min-h-screen bg-[var(--cuberto-bg-main)]">
-      {/* Navigation */}
-      <nav className="cuberto-nav">
-        <Link href="/" className="cuberto-logo">
-          <span className="text-gradient font-bold">Tier Events</span>
-        </Link>
-        <div className="cuberto-menu">
-          <div className="flex items-center space-x-6">
-            <Link href="/" className="nav-link">home</Link>
-            <div className="flex items-center space-x-3">
-              <span className="text-[var(--cuberto-text-secondary)] text-sm">Your tier:</span>
-              <span className={`px-4 py-2 rounded-full text-white text-sm font-medium bg-gradient-to-r ${getTierGradient(userTier)} shadow-lg`}>
-                {userTier.toUpperCase()}
-              </span>
-            </div>
-          </div>
+      {/* User Profile in top right corner - only when signed in */}
+      <SignedIn>
+        <div className="fixed top-6 right-6 z-50">
+          <UserButton afterSignOutUrl="/" />
         </div>
-      </nav>
+      </SignedIn>
 
-      {/* Hero Section with improved design */}
-      <section className="pt-32 pb-20 bg-gradient-to-br from-[var(--cuberto-bg-main)] to-[var(--cuberto-bg-section)]">
+      {/* Hero Section */}
+      <section className="pt-24 pb-16 bg-gradient-to-br from-[var(--cuberto-bg-main)] to-[var(--cuberto-bg-section)]">
         <div className="cuberto-container">
           <div className="text-center animate-fade-in-up">
             <div className="inline-block px-4 py-2 rounded-full bg-[var(--cuberto-accent-blue)] bg-opacity-10 text-[var(--cuberto-accent-blue)] text-sm font-medium mb-6">
@@ -91,10 +81,17 @@ export default async function EventsPage() {
             <h1 className="mb-6">
               Your <span className="text-gradient">{userTier.charAt(0).toUpperCase() + userTier.slice(1)}</span> Events
             </h1>
-            <p className="text-[var(--cuberto-text-secondary)] max-w-3xl mx-auto text-xl">
+            <p className="text-[var(--cuberto-text-secondary)] max-w-3xl mx-auto text-xl mb-8">
               Welcome to your personalized event hub. You have access to <span className="font-semibold text-[var(--cuberto-text-primary)]">{allowedTiers.join(', ')}</span> tier events.
               {userTier !== 'platinum' && ' Upgrade your tier to unlock even more exclusive content!'}
             </p>
+            {/* Tier Badge */}
+            <div className="flex items-center justify-center space-x-3">
+              <span className="text-[var(--cuberto-text-secondary)] text-sm">Your tier:</span>
+              <span className={`px-4 py-2 rounded-full text-white text-sm font-medium bg-gradient-to-r ${getTierGradient(userTier)} shadow-lg`}>
+                {userTier.toUpperCase()}
+              </span>
+            </div>
           </div>
         </div>
       </section>
@@ -110,19 +107,19 @@ export default async function EventsPage() {
         </section>
       )}
 
-      {/* Events Section with better layout */}
+      {/* Events Section */}
       <section className="py-20 bg-[var(--cuberto-bg-main)]">
         <div className="cuberto-container">
           {events && events.length > 0 ? (
             <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-              <div className="flex items-center justify-between mb-12">
+              <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-12 gap-4 events-header">
                 <div>
                   <h2 className="mb-4">Available Events</h2>
                   <p className="text-[var(--cuberto-text-secondary)]">
                     {events.length} event{events.length !== 1 ? 's' : ''} available for your tier
                   </p>
                 </div>
-                <div className="hidden md:flex items-center space-x-4">
+                <div className="flex items-center space-x-4">
                   <div className="text-sm text-[var(--cuberto-text-muted)]">Filter by:</div>
                   <div className="flex space-x-2">
                     {allowedTiers.map((tier) => (
@@ -133,7 +130,7 @@ export default async function EventsPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 events-grid">
                 {events.map((event: Event, index: number) => (
                   <div key={event.id} style={{ animationDelay: `${0.1 * (index + 1)}s` }}>
                     <EventCard event={event} />

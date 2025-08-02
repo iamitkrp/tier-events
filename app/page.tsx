@@ -1,4 +1,4 @@
-import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
+import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from '@clerk/nextjs';
 import Link from 'next/link';
 
 export default function Home() {
@@ -6,44 +6,52 @@ export default function Home() {
     <div className="min-h-screen bg-[var(--cuberto-bg-main)] relative">
       {/* User Profile in top right corner - only when signed in */}
       <SignedIn>
-        <div className="fixed top-6 right-6 z-50">
+        <div className="fixed top-4 right-4 lg:top-6 lg:right-6 z-50">
           <UserButton afterSignOutUrl="/" />
         </div>
       </SignedIn>
 
       {/* Main Layout with Divider */}
-      <div className="min-h-screen flex">
-        {/* Left Side - Content */}
-        <div className="w-1/2 flex items-center justify-center bg-gradient-to-br from-[var(--cuberto-bg-main)] to-[var(--cuberto-bg-section)] relative">
+      <div className="lg:min-h-screen lg:flex lg:flex-row">
+        {/* Content Section - Full screen on mobile, half width on desktop */}
+        <div className="min-h-screen lg:w-1/2 bg-gradient-to-br from-[var(--cuberto-bg-main)] to-[var(--cuberto-bg-section)] relative flex items-center justify-center px-6 py-16 lg:px-0 lg:py-0">
           <div className="cuberto-container w-full">
-            <div className="animate-fade-in-up max-w-2xl">
-              <h1 className="mb-8 leading-tight">
+            <div className="animate-fade-in-up max-w-2xl mx-auto lg:mx-0 text-center lg:text-left">
+              
+              {/* Title section */}
+              <h1 className="leading-tight text-4xl sm:text-5xl lg:text-[7vw] mb-20">
                 Unlock Exclusive{' '}
                 <span className="block text-gradient">Tier-Based Events</span>
               </h1>
-              <p className="text-[var(--cuberto-text-secondary)] text-xl mb-12">
+              
+              {/* Description section */}
+              <p className="text-[var(--cuberto-text-secondary)] text-lg lg:text-xl max-w-lg mx-auto lg:mx-0 mb-20">
                 Discover premium events, masterclasses, and networking opportunities tailored to your membership tier.
               </p>
               
-              <div className="flex">
+              {/* Button section */}
+              <div className="flex justify-center lg:justify-start">
                 <SignedOut>
-                  <Link href="/eventslocked" className="cb-btn_more3">
-                    Browse Events
-                  </Link>
+                  <SignUpButton mode="modal">
+                    <button className="cb-btn_more3">
+                      Sign Up or Login
+                    </button>
+                  </SignUpButton>
                 </SignedOut>
                 
                 <SignedIn>
-                  <Link href="/eventsunlocked" className="cb-btn_more3">
-                    Go to Events
+                  <Link href="/events" className="cb-btn_more3">
+                    Browse Events
                   </Link>
                 </SignedIn>
               </div>
+              
             </div>
           </div>
         </div>
 
-        {/* Right Side - Visual Divider */}
-        <div className="w-1/2 relative">
+        {/* Right Side - Visual Divider (Desktop Only) */}
+        <div className="hidden lg:flex lg:w-1/2 relative lg:min-h-screen">
           {/* Vertical Divider Line */}
           <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-[var(--cuberto-border-dark)] to-transparent"></div>
           

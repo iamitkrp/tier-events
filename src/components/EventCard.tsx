@@ -73,12 +73,14 @@ export function EventCard({ event, isLocked = false }: EventCardProps) {
         <div className="space-y-2">
           <div className="flex items-center gap-2 text-sm text-black/60">
             <Calendar className="h-4 w-4" />
-            <span className="font-light">{formattedDate}</span>
+            <span className="font-light">{formattedDate} • {formattedTime}</span>
           </div>
-          <div className="flex items-center gap-2 text-sm text-black/60">
-            <MapPin className="h-4 w-4" />
-            <span className="font-light">{formattedTime}</span>
-          </div>
+          {event.location && (
+            <div className="flex items-center gap-2 text-sm text-black/60">
+              <MapPin className="h-4 w-4" />
+              <span className="font-light">{event.location}</span>
+            </div>
+          )}
         </div>
       </div>
 

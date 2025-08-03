@@ -87,4 +87,3 @@ export function EventCard({ event, isLocked = false }: EventCardProps) {
     </div>
   )
 }
-}

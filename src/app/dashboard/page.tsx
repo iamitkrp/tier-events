@@ -7,7 +7,7 @@ import { TierBadge } from '@/components/TierBadge'
 import { Button } from '@/components/ui/button'
 import { supabase, type Event } from '@/lib/supabase'
 import { canAccessTier, getNextTier, getPreviousTier, type TierType } from '@/lib/tierUtils'
-import { Loader2, Plus, Settings, User, LogOut, Crown, ChevronDown } from 'lucide-react'
+import { Loader2, Plus, User, LogOut, Crown, ChevronDown } from 'lucide-react'
 import Link from 'next/link'
 
 export default function DashboardPage() {
@@ -16,7 +16,7 @@ export default function DashboardPage() {
   const [events, setEvents] = useState<Event[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [showSettings, setShowSettings] = useState(false)
+
   
   // Get user tier from Clerk metadata, default to 'free'
   const userTier = ((user?.publicMetadata as Record<string, unknown>)?.tier || (user?.unsafeMetadata as Record<string, unknown>)?.tier) as TierType || 'free'
@@ -134,18 +134,7 @@ export default function DashboardPage() {
     }
   }, [isLoaded])
 
-  // Close settings dropdown when clicking outside
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      const target = event.target as Element
-      if (showSettings && !target.closest('[data-settings-dropdown]')) {
-        setShowSettings(false)
-      }
-    }
 
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [showSettings])
 
   const handleUpgradeTier = async () => {
     if (!user || !nextTier) return
@@ -269,125 +258,93 @@ export default function DashboardPage() {
 
       {/* Content */}
       <div className="relative z-10 min-h-screen">
-      {/* Header */}
-      <header className="bg-white/80 backdrop-blur-sm border-b border-black/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center">
-              <Link href="/" className="text-xl font-medium text-black tracking-wide">
-                Tier Events
-              </Link>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2">
-                <User className="h-4 w-4 text-black/70" />
-                <span className="text-sm text-black/70">
-                  {user?.firstName} {user?.lastName}
-                </span>
-                <TierBadge tier={userTier} />
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          {/* Back to Home Link */}
+          <div className="mb-8">
+            <Link href="/" className="text-black/70 hover:text-black transition-colors duration-300 text-sm flex items-center gap-2">
+              <span>←</span>
+              <span>Back to Home</span>
+            </Link>
+          </div>
+
+          {/* Top Cards Row */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            {/* Personal Info Card */}
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-black/10">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-16 h-16 bg-black/10 rounded-full flex items-center justify-center">
+                  <User className="h-8 w-8 text-black/70" />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-light text-black">
+                    {user?.firstName} {user?.lastName}
+                  </h2>
+                  <p className="text-black/60 text-sm">
+                    {user?.primaryEmailAddress?.emailAddress}
+                  </p>
+                </div>
               </div>
-              <div className="relative" data-settings-dropdown>
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  onClick={() => setShowSettings(!showSettings)}
-                  className="bg-black/10 border-black/20 text-black hover:bg-black/20 backdrop-blur-sm"
-                >
-                  <Settings className="h-4 w-4 mr-2" />
-                  Settings
-                </Button>
+              
+              <div className="space-y-4">
+                <div className="flex items-center justify-between p-3 bg-black/5 rounded-xl">
+                  <span className="text-sm font-light text-black/70 uppercase tracking-wide">Current Tier</span>
+                  <TierBadge tier={userTier} />
+                </div>
                 
-                {showSettings && (
-                  <div className="fixed right-4 top-20 w-64 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-black/10 z-[9999]">
-                    <div className="p-4">
-                      <div className="flex items-center gap-3 mb-4">
-                        <div className="w-10 h-10 bg-black/10 rounded-full flex items-center justify-center">
-                          <User className="h-5 w-5 text-black/70" />
-                        </div>
-                        <div>
-                          <p className="font-medium text-black">
-                            {user?.firstName} {user?.lastName}
-                          </p>
-                          <p className="text-sm text-black/60">
-                            {user?.primaryEmailAddress?.emailAddress}
-                          </p>
-                        </div>
-                      </div>
-                      
-                      <div className="space-y-3">
-                        <div className="flex items-center justify-between p-2 bg-black/5 rounded">
-                          <span className="text-sm font-medium">Current Tier:</span>
-                          <TierBadge tier={userTier} />
-                        </div>
-                        
-                        <div className="space-y-2">
-                          {nextTier && (
-                            <Button
-                              onClick={handleUpgradeTier}
-                              className="w-full"
-                              size="sm"
-                            >
-                              <Crown className="h-4 w-4 mr-2" />
-                              Upgrade to {nextTier.charAt(0).toUpperCase() + nextTier.slice(1)}
-                            </Button>
-                          )}
-                          
-                          {previousTier && (
-                            <Button
-                              onClick={handleDowngradeTier}
-                              variant="outline"
-                              className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50 border-orange-200"
-                              size="sm"
-                            >
-                              <ChevronDown className="h-4 w-4 mr-2" />
-                              Downgrade to {previousTier.charAt(0).toUpperCase() + previousTier.slice(1)}
-                            </Button>
-                          )}
-                        </div>
-                        
-                        <hr className="my-2" />
-                        
-                        <Button
-                          onClick={() => signOut({ redirectUrl: '/' })}
-                          variant="outline"
-                          className="w-full text-red-600 hover:text-red-700 hover:bg-red-50"
-                          size="sm"
-                        >
-                          <LogOut className="h-4 w-4 mr-2" />
-                          Sign Out
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
+                <div className="space-y-3">
+                  {nextTier && (
+                    <Button
+                      onClick={handleUpgradeTier}
+                      className="w-full bg-black text-white hover:bg-black/90 rounded-full py-3"
+                    >
+                      <Crown className="h-4 w-4 mr-2" />
+                      Upgrade to {nextTier.charAt(0).toUpperCase() + nextTier.slice(1)}
+                    </Button>
+                  )}
+                  
+                  {previousTier && (
+                    <Button
+                      onClick={handleDowngradeTier}
+                      variant="outline"
+                      className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50 border-orange-200 rounded-full py-3"
+                    >
+                      <ChevronDown className="h-4 w-4 mr-2" />
+                      Downgrade to {previousTier.charAt(0).toUpperCase() + previousTier.slice(1)}
+                    </Button>
+                  )}
+                  
+                  <Button
+                    onClick={() => signOut({ redirectUrl: '/' })}
+                    variant="outline"
+                    className="w-full text-red-600 hover:text-red-700 hover:bg-red-50 border-red-200 rounded-full py-3"
+                  >
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Sign Out
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            {/* Your Events Card */}
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-black/10">
+              <div>
+                <h1 className="text-4xl lg:text-5xl font-light text-black mb-2">Your Events</h1>
+                <div className="w-16 h-0.5 bg-black/20 mb-4"></div>
+                <p className="text-black/70 text-lg font-light mb-6">
+                  Discover premium experiences curated for your {userTier} tier membership
+                </p>
+                {nextTier && (
+                  <Button 
+                    onClick={handleUpgradeTier} 
+                    className="bg-black text-white hover:bg-black/90 rounded-full px-6 py-3 flex items-center gap-2"
+                  >
+                    <Plus className="h-4 w-4" />
+                    Upgrade to {nextTier.charAt(0).toUpperCase() + nextTier.slice(1)}
+                  </Button>
                 )}
               </div>
             </div>
           </div>
-        </div>
-      </header>
-
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Dashboard Header */}
-        <div className="mb-8 bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-black/10">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-4xl lg:text-5xl font-light text-black mb-2">Your Events</h1>
-              <div className="w-16 h-0.5 bg-black/20 mb-4"></div>
-              <p className="text-black/70 text-lg font-light">
-                Discover premium experiences curated for your {userTier} tier membership
-              </p>
-            </div>
-            {nextTier && (
-              <Button 
-                onClick={handleUpgradeTier} 
-                className="bg-black text-white hover:bg-black/90 rounded-full px-6 py-3 flex items-center gap-2"
-              >
-                <Plus className="h-4 w-4" />
-                Upgrade to {nextTier.charAt(0).toUpperCase() + nextTier.slice(1)}
-              </Button>
-            )}
-          </div>
-        </div>
 
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">

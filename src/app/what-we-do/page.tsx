@@ -27,6 +27,15 @@ export default function WhatWeDoPage() {
 
       {/* Content */}
       <div className="relative z-10 min-h-screen">
+        <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          {/* Back to Home Link */}
+          <div className="mb-8">
+            <Link href="/" className="text-black/70 hover:text-black transition-colors duration-300 text-sm flex items-center gap-2 cursor-pointer">
+              <span>←</span>
+              <span>Back to Home</span>
+            </Link>
+          </div>
+        </main>
       {/* Hero Section */}
       <div className="relative bg-white/80 backdrop-blur-sm">
         <div className="max-w-4xl mx-auto px-8 py-16 lg:py-24">
@@ -174,20 +183,7 @@ export default function WhatWeDoPage() {
         </div>
       </div>
 
-      {/* Navigation */}
-      <div className="border-t border-black/10 bg-white/80 backdrop-blur-sm">
-        <div className="max-w-4xl mx-auto px-8 py-8">
-          <div className="flex justify-center">
-            <Link 
-              href="/" 
-              className="text-black/70 hover:text-black transition-colors duration-300 text-sm flex items-center space-x-2"
-            >
-              <span>←</span>
-              <span>Back to Home</span>
-            </Link>
-          </div>
-        </div>
-      </div>
+
       </div>
     </div>
   )

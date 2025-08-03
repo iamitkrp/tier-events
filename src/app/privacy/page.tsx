@@ -1,8 +1,23 @@
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="relative min-h-screen overflow-hidden">
+      {/* Video Background */}
+      <div className="absolute inset-0 z-0">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/bg/ribbon.mp4" type="video/mp4" />
+        </video>
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 min-h-screen">
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-br from-slate-50 to-white">
+      <div className="relative bg-white/80 backdrop-blur-sm">
         <div className="max-w-4xl mx-auto px-8 py-16 lg:py-24">
           <div className="text-center">
             <h1 className="text-4xl lg:text-6xl font-light text-black mb-6">
@@ -17,7 +32,7 @@ export default function PrivacyPage() {
       </div>
 
       {/* Content */}
-      <div className="max-w-4xl mx-auto px-8 py-16">
+      <div className="max-w-4xl mx-auto px-8 py-16 bg-white/80 backdrop-blur-sm">
         <div className="prose prose-lg max-w-none">
           <div className="space-y-12">
             
@@ -186,7 +201,7 @@ export default function PrivacyPage() {
       </div>
 
       {/* Navigation */}
-      <div className="border-t border-black/10 bg-slate-50/50">
+      <div className="border-t border-black/10 bg-white/80 backdrop-blur-sm">
         <div className="max-w-4xl mx-auto px-8 py-8">
           <div className="flex justify-center">
             <a 
@@ -198,6 +213,7 @@ export default function PrivacyPage() {
             </a>
           </div>
         </div>
+      </div>
       </div>
     </div>
   )

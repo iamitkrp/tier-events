@@ -47,16 +47,7 @@ export default function Home() {
                 Help
               </button>
             </Link>
-            <SignedIn>
-              <Link href="/dashboard">
-                <Button 
-                  variant="outline" 
-                  className="bg-black/10 border-black/20 text-black hover:bg-black/20 backdrop-blur-sm"
-                >
-                  Dashboard
-                </Button>
-              </Link>
-            </SignedIn>
+
           </div>
         </nav>
 
@@ -115,7 +106,7 @@ export default function Home() {
         </main>
 
         {/* Premium Tier Showcase */}
-        <div className="pb-16 px-8 lg:px-12">
+        <div className="pb-16 px-8 lg:px-12 mt-24">
           <div className="max-w-7xl mx-auto">
             {/* Section Header */}
             <div className="text-center mb-12">

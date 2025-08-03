@@ -1,8 +1,23 @@
 export default function WhatWeDoPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="relative min-h-screen overflow-hidden">
+      {/* Video Background */}
+      <div className="absolute inset-0 z-0">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/bg/ribbon.mp4" type="video/mp4" />
+        </video>
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 min-h-screen">
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-br from-slate-50 to-white">
+      <div className="relative bg-white/80 backdrop-blur-sm">
         <div className="max-w-4xl mx-auto px-8 py-16 lg:py-24">
           <div className="text-center">
             <h1 className="text-4xl lg:text-6xl font-light text-black mb-6">
@@ -17,7 +32,7 @@ export default function WhatWeDoPage() {
       </div>
 
       {/* Services Section */}
-      <div className="max-w-6xl mx-auto px-8 py-16">
+      <div className="max-w-6xl mx-auto px-8 py-16 bg-white/80 backdrop-blur-sm">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {[
             {
@@ -111,7 +126,7 @@ export default function WhatWeDoPage() {
       </div>
 
       {/* Process Section */}
-      <div className="bg-slate-50/50 py-16">
+      <div className="bg-white/60 backdrop-blur-sm py-16">
         <div className="max-w-4xl mx-auto px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-light text-black mb-4">Our Process</h2>
@@ -149,7 +164,7 @@ export default function WhatWeDoPage() {
       </div>
 
       {/* Navigation */}
-      <div className="border-t border-black/10">
+      <div className="border-t border-black/10 bg-white/80 backdrop-blur-sm">
         <div className="max-w-4xl mx-auto px-8 py-8">
           <div className="flex justify-center">
             <a 
@@ -161,6 +176,7 @@ export default function WhatWeDoPage() {
             </a>
           </div>
         </div>
+      </div>
       </div>
     </div>
   )

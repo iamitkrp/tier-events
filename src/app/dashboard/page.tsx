@@ -1,20 +1,22 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useUser } from '@clerk/nextjs'
+import { useUser, useClerk } from '@clerk/nextjs'
 import { EventCard } from '@/components/EventCard'
 import { TierBadge } from '@/components/TierBadge'
 import { Button } from '@/components/ui/button'
 import { supabase, type Event } from '@/lib/supabase'
 import { canAccessTier, getNextTier, type TierType } from '@/lib/tierUtils'
-import { Loader2, Plus, Settings, User } from 'lucide-react'
+import { Loader2, Plus, Settings, User, LogOut, Crown } from 'lucide-react'
 import Link from 'next/link'
 
 export default function DashboardPage() {
   const { user, isLoaded } = useUser()
+  const { signOut } = useClerk()
   const [events, setEvents] = useState<Event[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [showSettings, setShowSettings] = useState(false)
   
   // Get user tier from Clerk metadata, default to 'free'
   const userTier = ((user?.publicMetadata as Record<string, unknown>)?.tier || (user?.unsafeMetadata as Record<string, unknown>)?.tier) as TierType || 'free'
@@ -131,6 +133,19 @@ export default function DashboardPage() {
     }
   }, [isLoaded])
 
+  // Close settings dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      const target = event.target as Element
+      if (showSettings && !target.closest('[data-settings-dropdown]')) {
+        setShowSettings(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [showSettings])
+
   const handleUpgradeTier = async () => {
     if (!user || !nextTier) return
 
@@ -198,10 +213,66 @@ export default function DashboardPage() {
                 </span>
                 <TierBadge tier={userTier} />
               </div>
-              <Button variant="outline" size="sm">
-                <Settings className="h-4 w-4 mr-2" />
-                Settings
-              </Button>
+              <div className="relative" data-settings-dropdown>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => setShowSettings(!showSettings)}
+                >
+                  <Settings className="h-4 w-4 mr-2" />
+                  Settings
+                </Button>
+                
+                {showSettings && (
+                  <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+                    <div className="p-4">
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                          <User className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <div>
+                          <p className="font-medium text-gray-900">
+                            {user?.firstName} {user?.lastName}
+                          </p>
+                          <p className="text-sm text-gray-500">
+                            {user?.primaryEmailAddress?.emailAddress}
+                          </p>
+                        </div>
+                      </div>
+                      
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between p-2 bg-gray-50 rounded">
+                          <span className="text-sm font-medium">Current Tier:</span>
+                          <TierBadge tier={userTier} />
+                        </div>
+                        
+                        {nextTier && (
+                          <Button
+                            onClick={handleUpgradeTier}
+                            className="w-full"
+                            size="sm"
+                          >
+                            <Crown className="h-4 w-4 mr-2" />
+                            Upgrade to {nextTier.charAt(0).toUpperCase() + nextTier.slice(1)}
+                          </Button>
+                        )}
+                        
+                        <hr className="my-2" />
+                        
+                        <Button
+                          onClick={() => signOut({ redirectUrl: '/' })}
+                          variant="outline"
+                          className="w-full text-red-600 hover:text-red-700 hover:bg-red-50"
+                          size="sm"
+                        >
+                          <LogOut className="h-4 w-4 mr-2" />
+                          Sign Out
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>

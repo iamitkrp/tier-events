@@ -261,7 +261,7 @@ export default function DashboardPage() {
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Back to Home Link */}
           <div className="mb-8">
-            <Link href="/" className="text-black/70 hover:text-black transition-colors duration-300 text-sm flex items-center gap-2">
+            <Link href="/" className="text-black/70 hover:text-black transition-colors duration-300 text-sm flex items-center gap-2 cursor-pointer">
               <span>←</span>
               <span>Back to Home</span>
             </Link>
@@ -292,21 +292,11 @@ export default function DashboardPage() {
                 </div>
                 
                 <div className="space-y-3">
-                  {nextTier && (
-                    <Button
-                      onClick={handleUpgradeTier}
-                      className="w-full bg-black text-white hover:bg-black/90 rounded-full py-3"
-                    >
-                      <Crown className="h-4 w-4 mr-2" />
-                      Upgrade to {nextTier.charAt(0).toUpperCase() + nextTier.slice(1)}
-                    </Button>
-                  )}
-                  
                   {previousTier && (
                     <Button
                       onClick={handleDowngradeTier}
                       variant="outline"
-                      className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50 border-orange-200 rounded-full py-3"
+                      className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50 border-orange-200 rounded-full py-3 cursor-pointer"
                     >
                       <ChevronDown className="h-4 w-4 mr-2" />
                       Downgrade to {previousTier.charAt(0).toUpperCase() + previousTier.slice(1)}
@@ -316,7 +306,7 @@ export default function DashboardPage() {
                   <Button
                     onClick={() => signOut({ redirectUrl: '/' })}
                     variant="outline"
-                    className="w-full text-red-600 hover:text-red-700 hover:bg-red-50 border-red-200 rounded-full py-3"
+                    className="w-full text-red-600 hover:text-red-700 hover:bg-red-50 border-red-200 rounded-full py-3 cursor-pointer"
                   >
                     <LogOut className="h-4 w-4 mr-2" />
                     Sign Out
@@ -336,7 +326,7 @@ export default function DashboardPage() {
                 {nextTier && (
                   <Button 
                     onClick={handleUpgradeTier} 
-                    className="bg-black text-white hover:bg-black/90 rounded-full px-6 py-3 flex items-center gap-2"
+                    className="bg-black text-white hover:bg-black/90 rounded-full px-6 py-3 flex items-center gap-2 cursor-pointer"
                   >
                     <Plus className="h-4 w-4" />
                     Upgrade to {nextTier.charAt(0).toUpperCase() + nextTier.slice(1)}
@@ -417,7 +407,7 @@ export default function DashboardPage() {
                 <Button 
                   onClick={handleUpgradeTier} 
                   variant="outline"
-                  className="bg-transparent border-black/30 text-black hover:bg-black/10 rounded-full px-6 py-3 backdrop-blur-sm ml-8"
+                  className="bg-transparent border-black/30 text-black hover:bg-black/10 rounded-full px-6 py-3 backdrop-blur-sm ml-8 cursor-pointer"
                 >
                   Upgrade to {nextTier.charAt(0).toUpperCase() + nextTier.slice(1)}
                 </Button>

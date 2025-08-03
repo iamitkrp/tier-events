@@ -98,7 +98,7 @@ export default function AboutPage() {
       {/* Navigation */}
       <div className="border-t border-black/10 bg-white/80 backdrop-blur-sm">
         <div className="max-w-4xl mx-auto px-8 py-8">
-          <div className="flex justify-center">
+          <div className="flex flex-col items-center space-y-4">
             <Link 
               href="/" 
               className="text-black/70 hover:text-black transition-colors duration-300 text-sm flex items-center space-x-2"
@@ -106,6 +106,17 @@ export default function AboutPage() {
               <span>←</span>
               <span>Back to Home</span>
             </Link>
+            <p className="text-black/40 text-xs font-light">
+              Made by -{' '}
+              <a 
+                href="https://amitkp.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-black/60 hover:text-black/80 transition-colors duration-300 cursor-pointer"
+              >
+                Amit
+              </a>
+            </p>
           </div>
         </div>
       </div>

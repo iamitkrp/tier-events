@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 export default function PrivacyPage() {
   return (
     <div className="relative min-h-screen overflow-hidden">
@@ -204,13 +206,13 @@ export default function PrivacyPage() {
       <div className="border-t border-black/10 bg-white/80 backdrop-blur-sm">
         <div className="max-w-4xl mx-auto px-8 py-8">
           <div className="flex justify-center">
-            <a 
+            <Link 
               href="/" 
               className="text-black/70 hover:text-black transition-colors duration-300 text-sm flex items-center space-x-2"
             >
               <span>←</span>
               <span>Back to Home</span>
-            </a>
+            </Link>
           </div>
         </div>
       </div>

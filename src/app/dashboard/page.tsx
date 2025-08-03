@@ -192,10 +192,26 @@ export default function DashboardPage() {
 
   if (!isLoaded || loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4" />
-          <p className="text-gray-600">Loading your events...</p>
+      <div className="relative min-h-screen overflow-hidden">
+        {/* Video Background */}
+        <div className="absolute inset-0 z-0">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src="/bg/ribbon.mp4" type="video/mp4" />
+          </video>
+        </div>
+
+        {/* Loading Content */}
+        <div className="relative z-10 min-h-screen flex items-center justify-center">
+          <div className="text-center bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-black/10">
+            <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4 text-black" />
+            <p className="text-black/70 font-light">Loading your premium events...</p>
+          </div>
         </div>
       </div>
     )
@@ -203,32 +219,69 @@ export default function DashboardPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-red-600 mb-4">{error}</p>
-          <Button onClick={() => window.location.reload()}>
-            Try Again
-          </Button>
+      <div className="relative min-h-screen overflow-hidden">
+        {/* Video Background */}
+        <div className="absolute inset-0 z-0">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src="/bg/ribbon.mp4" type="video/mp4" />
+          </video>
+        </div>
+
+        {/* Error Content */}
+        <div className="relative z-10 min-h-screen flex items-center justify-center">
+          <div className="text-center bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-black/10">
+            <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span className="text-red-600 text-2xl">⚠️</span>
+            </div>
+            <p className="text-black mb-6 font-light">{error}</p>
+            <Button 
+              onClick={() => window.location.reload()}
+              className="bg-black text-white hover:bg-black/90 rounded-full px-6 py-3"
+            >
+              Try Again
+            </Button>
+          </div>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="relative min-h-screen overflow-hidden">
+      {/* Video Background */}
+      <div className="absolute inset-0 z-0">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/bg/ribbon.mp4" type="video/mp4" />
+        </video>
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 min-h-screen">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
+      <header className="bg-white/80 backdrop-blur-sm border-b border-black/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
-              <Link href="/" className="text-2xl font-bold text-gray-900">
+              <Link href="/" className="text-xl font-medium text-black tracking-wide">
                 Tier Events
               </Link>
             </div>
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
-                <User className="h-4 w-4" />
-                <span className="text-sm text-gray-600">
+                <User className="h-4 w-4 text-black/70" />
+                <span className="text-sm text-black/70">
                   {user?.firstName} {user?.lastName}
                 </span>
                 <TierBadge tier={userTier} />
@@ -238,30 +291,31 @@ export default function DashboardPage() {
                   variant="outline" 
                   size="sm"
                   onClick={() => setShowSettings(!showSettings)}
+                  className="bg-black/10 border-black/20 text-black hover:bg-black/20 backdrop-blur-sm"
                 >
                   <Settings className="h-4 w-4 mr-2" />
                   Settings
                 </Button>
                 
                 {showSettings && (
-                  <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+                  <div className="absolute right-0 mt-2 w-64 bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-black/10 z-50">
                     <div className="p-4">
                       <div className="flex items-center gap-3 mb-4">
-                        <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                          <User className="h-5 w-5 text-blue-600" />
+                        <div className="w-10 h-10 bg-black/10 rounded-full flex items-center justify-center">
+                          <User className="h-5 w-5 text-black/70" />
                         </div>
                         <div>
-                          <p className="font-medium text-gray-900">
+                          <p className="font-medium text-black">
                             {user?.firstName} {user?.lastName}
                           </p>
-                          <p className="text-sm text-gray-500">
+                          <p className="text-sm text-black/60">
                             {user?.primaryEmailAddress?.emailAddress}
                           </p>
                         </div>
                       </div>
                       
                       <div className="space-y-3">
-                        <div className="flex items-center justify-between p-2 bg-gray-50 rounded">
+                        <div className="flex items-center justify-between p-2 bg-black/5 rounded">
                           <span className="text-sm font-medium">Current Tier:</span>
                           <TierBadge tier={userTier} />
                         </div>
@@ -314,16 +368,20 @@ export default function DashboardPage() {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Dashboard Header */}
-        <div className="mb-8">
+        <div className="mb-8 bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-black/10">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Your Events</h1>
-              <p className="text-gray-600 mt-1">
-                Discover events available for your {userTier} tier membership
+              <h1 className="text-4xl lg:text-5xl font-light text-black mb-2">Your Events</h1>
+              <div className="w-16 h-0.5 bg-black/20 mb-4"></div>
+              <p className="text-black/70 text-lg font-light">
+                Discover premium experiences curated for your {userTier} tier membership
               </p>
             </div>
             {nextTier && (
-              <Button onClick={handleUpgradeTier} className="flex items-center gap-2">
+              <Button 
+                onClick={handleUpgradeTier} 
+                className="bg-black text-white hover:bg-black/90 rounded-full px-6 py-3 flex items-center gap-2"
+              >
                 <Plus className="h-4 w-4" />
                 Upgrade to {nextTier.charAt(0).toUpperCase() + nextTier.slice(1)}
               </Button>
@@ -332,43 +390,43 @@ export default function DashboardPage() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="bg-white rounded-lg shadow p-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <div className="bg-white/80 backdrop-blur-sm rounded-2xl border border-black/10 p-6 hover:bg-white/90 transition-all duration-300">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
-                  <span className="text-green-600 font-semibold text-sm">✓</span>
+                <div className="w-12 h-12 bg-green-100 rounded-2xl flex items-center justify-center">
+                  <span className="text-green-600 font-semibold text-lg">✓</span>
                 </div>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Available Events</p>
-                <p className="text-2xl font-semibold text-gray-900">{accessibleEvents.length}</p>
+                <p className="text-sm font-light text-black/60 uppercase tracking-wide">Available Events</p>
+                <p className="text-3xl font-light text-black">{accessibleEvents.length}</p>
               </div>
             </div>
           </div>
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="bg-white/80 backdrop-blur-sm rounded-2xl border border-black/10 p-6 hover:bg-white/90 transition-all duration-300">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                  <span className="text-blue-600 font-semibold text-sm">T</span>
+                <div className="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center">
+                  <span className="text-blue-600 font-semibold text-lg">👑</span>
                 </div>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Current Tier</p>
-                <p className="text-2xl font-semibold text-gray-900 capitalize">{userTier}</p>
+                <p className="text-sm font-light text-black/60 uppercase tracking-wide">Current Tier</p>
+                <p className="text-3xl font-light text-black capitalize">{userTier}</p>
               </div>
             </div>
           </div>
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="bg-white/80 backdrop-blur-sm rounded-2xl border border-black/10 p-6 hover:bg-white/90 transition-all duration-300">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center">
-                  <span className="text-orange-600 font-semibold text-sm">🔒</span>
+                <div className="w-12 h-12 bg-orange-100 rounded-2xl flex items-center justify-center">
+                  <span className="text-orange-600 font-semibold text-lg">🔒</span>
                 </div>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Locked Events</p>
-                <p className="text-2xl font-semibold text-gray-900">{lockedEvents.length}</p>
+                <p className="text-sm font-light text-black/60 uppercase tracking-wide">Premium Events</p>
+                <p className="text-3xl font-light text-black">{lockedEvents.length}</p>
               </div>
             </div>
           </div>
@@ -376,8 +434,11 @@ export default function DashboardPage() {
 
         {/* Available Events */}
         {accessibleEvents.length > 0 && (
-          <div className="mb-12">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6">Available Events</h2>
+          <div className="mb-16">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-light text-black mb-4">Available Events</h2>
+              <div className="w-16 h-0.5 bg-black/20 mx-auto"></div>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {accessibleEvents.map((event) => (
                 <EventCard key={event.id} event={event} />
@@ -388,14 +449,19 @@ export default function DashboardPage() {
 
         {/* Locked Events Preview */}
         {lockedEvents.length > 0 && (
-          <div>
-            <div className="flex items-center justify-between mb-6">
-              <div>
-                <h2 className="text-2xl font-semibold text-gray-900">Premium Events</h2>
-                <p className="text-gray-600">Upgrade your tier to access these exclusive events</p>
+          <div className="bg-white/60 backdrop-blur-sm rounded-2xl border border-black/10 p-8">
+            <div className="flex items-center justify-between mb-8">
+              <div className="text-center flex-1">
+                <h2 className="text-3xl font-light text-black mb-2">Premium Events</h2>
+                <div className="w-16 h-0.5 bg-black/20 mx-auto mb-4"></div>
+                <p className="text-black/70 font-light">Upgrade your tier to unlock these exclusive experiences</p>
               </div>
               {nextTier && (
-                <Button onClick={handleUpgradeTier} variant="outline">
+                <Button 
+                  onClick={handleUpgradeTier} 
+                  variant="outline"
+                  className="bg-transparent border-black/30 text-black hover:bg-black/10 rounded-full px-6 py-3 backdrop-blur-sm ml-8"
+                >
                   Upgrade to {nextTier.charAt(0).toUpperCase() + nextTier.slice(1)}
                 </Button>
               )}
@@ -410,15 +476,19 @@ export default function DashboardPage() {
 
         {/* Empty State */}
         {events.length === 0 && (
-          <div className="text-center py-12">
-            <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="text-center py-16 bg-white/80 backdrop-blur-sm rounded-2xl border border-black/10">
+            <div className="w-24 h-24 bg-black/5 rounded-full flex items-center justify-center mx-auto mb-6">
               <span className="text-4xl">📅</span>
             </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">No Events Available</h3>
-            <p className="text-gray-600 mb-4">
-              It looks like there are no events in the system yet.
+            <h3 className="text-2xl font-light text-black mb-4">No Events Available</h3>
+            <div className="w-16 h-0.5 bg-black/20 mx-auto mb-6"></div>
+            <p className="text-black/70 font-light mb-8 max-w-md mx-auto">
+              It looks like there are no events in the system yet. Let&apos;s add some sample events to get started.
             </p>
-            <Button asChild>
+            <Button 
+              asChild
+              className="bg-black text-white hover:bg-black/90 rounded-full px-8 py-3"
+            >
               <Link href="/api/seed" target="_blank">
                 Seed Sample Events
               </Link>
@@ -426,6 +496,7 @@ export default function DashboardPage() {
           </div>
         )}
       </main>
+      </div>
     </div>
   )
 }

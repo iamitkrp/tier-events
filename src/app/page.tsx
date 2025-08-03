@@ -16,8 +16,7 @@ export default function Home() {
         >
           <source src="/bg/ribbon.mp4" type="video/mp4" />
         </video>
-        {/* Dark overlay for better text readability */}
-        <div className="absolute inset-0 bg-black/40"></div>
+
       </div>
 
       {/* Content */}
@@ -25,34 +24,39 @@ export default function Home() {
         {/* Minimal Navigation */}
         <nav className="flex items-center justify-between px-8 py-6 lg:px-12">
           <div className="flex items-center">
-            <h1 className="text-xl font-medium text-white tracking-wide">Tier Events</h1>
+            <h1 className="text-xl font-medium text-black tracking-wide">Tier Events</h1>
           </div>
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-8">
+            <Link href="/about">
+              <button className="text-black/70 hover:text-black transition-colors duration-300 text-sm">
+                About Us
+              </button>
+            </Link>
+            <Link href="/what-we-do">
+              <button className="text-black/70 hover:text-black transition-colors duration-300 text-sm">
+                What We Do
+              </button>
+            </Link>
+            <Link href="/privacy">
+              <button className="text-black/70 hover:text-black transition-colors duration-300 text-sm">
+                Privacy Policy
+              </button>
+            </Link>
+            <Link href="/help">
+              <button className="text-black/70 hover:text-black transition-colors duration-300 text-sm">
+                Help
+              </button>
+            </Link>
             <SignedIn>
               <Link href="/dashboard">
                 <Button 
                   variant="outline" 
-                  className="bg-white/10 border-white/20 text-white hover:bg-white/20 backdrop-blur-sm"
+                  className="bg-black/10 border-black/20 text-black hover:bg-black/20 backdrop-blur-sm"
                 >
                   Dashboard
                 </Button>
               </Link>
             </SignedIn>
-            <SignedOut>
-              <Link href="/login">
-                <button className="text-white/80 hover:text-white transition-colors duration-300 text-sm">
-                  Sign In
-                </button>
-              </Link>
-              <Link href="/signup">
-                <Button 
-                  className="bg-white text-black hover:bg-white/90 transition-all duration-300"
-                  size="sm"
-                >
-                  Get Started
-                </Button>
-              </Link>
-            </SignedOut>
           </div>
         </nav>
 
@@ -62,15 +66,15 @@ export default function Home() {
             <div className="space-y-8">
               {/* Main Headline */}
               <div className="space-y-4">
-                <h1 className="text-6xl lg:text-8xl font-light text-white leading-tight tracking-tight">
+                <h1 className="text-6xl lg:text-8xl font-light text-black leading-tight tracking-tight">
                   Premium
                   <span className="block font-normal">Events</span>
                 </h1>
-                <div className="w-24 h-0.5 bg-white/60 mx-auto"></div>
+                <div className="w-24 h-0.5 bg-black/60 mx-auto"></div>
               </div>
 
               {/* Subtitle */}
-              <p className="text-xl lg:text-2xl text-white/80 font-light max-w-2xl mx-auto leading-relaxed">
+              <p className="text-xl lg:text-2xl text-black/80 font-light max-w-2xl mx-auto leading-relaxed">
                 Curated experiences tailored to your membership tier
               </p>
 
@@ -80,7 +84,7 @@ export default function Home() {
                   <Link href="/dashboard">
                     <Button 
                       size="lg" 
-                      className="bg-white text-black hover:bg-white/90 text-base px-8 py-3 rounded-full transition-all duration-300 min-w-[160px]"
+                      className="bg-black text-white hover:bg-black/90 text-base px-8 py-3 rounded-full transition-all duration-300 min-w-[160px]"
                     >
                       View Events
                     </Button>
@@ -90,7 +94,7 @@ export default function Home() {
                   <Link href="/signup">
                     <Button 
                       size="lg" 
-                      className="bg-white text-black hover:bg-white/90 text-base px-8 py-3 rounded-full transition-all duration-300 min-w-[160px]"
+                      className="bg-black text-white hover:bg-black/90 text-base px-8 py-3 rounded-full transition-all duration-300 min-w-[160px]"
                     >
                       Get Started
                     </Button>
@@ -99,7 +103,7 @@ export default function Home() {
                     <Button 
                       variant="outline" 
                       size="lg" 
-                      className="bg-transparent border-white/30 text-white hover:bg-white/10 text-base px-8 py-3 rounded-full transition-all duration-300 min-w-[160px] backdrop-blur-sm"
+                      className="bg-transparent border-black/30 text-black hover:bg-black/10 text-base px-8 py-3 rounded-full transition-all duration-300 min-w-[160px] backdrop-blur-sm"
                     >
                       Sign In
                     </Button>
@@ -115,7 +119,7 @@ export default function Home() {
           <div className="max-w-7xl mx-auto">
             {/* Section Header */}
             <div className="text-center mb-12">
-              <h2 className="text-sm uppercase tracking-[0.2em] text-white/60 font-light">
+              <h2 className="text-sm uppercase tracking-[0.2em] text-black/60 font-light">
                 Membership Tiers
               </h2>
             </div>
@@ -180,10 +184,10 @@ export default function Home() {
                     
                     {/* Tier Info */}
                     <div className="flex-1">
-                      <h3 className="text-white font-medium text-lg mb-1 group-hover:text-white transition-colors">
+                      <h3 className="text-black font-medium text-lg mb-1 group-hover:text-black transition-colors">
                         {tier.name}
                       </h3>
-                      <p className="text-white/60 text-sm mb-4 group-hover:text-white/80 transition-colors">
+                      <p className="text-black/60 text-sm mb-4 group-hover:text-black/80 transition-colors">
                         {tier.desc}
                       </p>
                       
@@ -192,7 +196,7 @@ export default function Home() {
                         {tier.features.map((feature, featureIndex) => (
                           <div 
                             key={featureIndex}
-                            className="flex items-center space-x-2 text-white/50 group-hover:text-white/70 transition-colors"
+                            className="flex items-center space-x-2 text-black/50 group-hover:text-black/70 transition-colors"
                           >
                             <div className="w-1 h-1 bg-current rounded-full"></div>
                             <span className="text-xs font-light">{feature}</span>
@@ -202,18 +206,18 @@ export default function Home() {
                     </div>
                     
                     {/* Tier Number */}
-                    <div className="mt-6 pt-4 border-t border-white/10">
-                      <span className="text-white/40 text-xs font-light">
+                    <div className="mt-6 pt-4 border-t border-black/10">
+                      <span className="text-black/40 text-xs font-light">
                         Tier {index + 1} of 4
                       </span>
                     </div>
                   </div>
                   
                   {/* Hover Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
                   
                   {/* Progress Bar */}
-                  <div className="absolute bottom-0 left-0 w-full h-0.5 bg-white/10">
+                  <div className="absolute bottom-0 left-0 w-full h-0.5 bg-black/10">
                     <div 
                       className={`h-full ${tier.dot} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left`}
                     ></div>
@@ -224,7 +228,7 @@ export default function Home() {
             
             {/* Bottom CTA */}
             <div className="text-center mt-12">
-              <p className="text-white/40 text-xs font-light">
+              <p className="text-black/40 text-xs font-light">
                 Each tier unlocks access to previous tier benefits
               </p>
             </div>

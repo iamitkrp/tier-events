@@ -4,125 +4,134 @@ import Link from 'next/link'
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
-      {/* Navigation */}
-      <nav className="flex items-center justify-between p-6 lg:px-8">
-        <div className="flex items-center">
-          <h1 className="text-2xl font-bold text-gray-900">Tier Events</h1>
-        </div>
-        <div className="flex items-center gap-4">
-          <SignedIn>
-            <Link href="/dashboard">
-              <Button>Dashboard</Button>
-            </Link>
-          </SignedIn>
-          <SignedOut>
-            <Link href="/login">
-              <Button variant="outline">Sign In</Button>
-            </Link>
-            <Link href="/signup">
-              <Button>Sign Up</Button>
-            </Link>
-          </SignedOut>
-        </div>
-      </nav>
+    <div className="relative min-h-screen overflow-hidden">
+      {/* Video Background */}
+      <div className="absolute inset-0 z-0">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/bg/ribbon.mp4" type="video/mp4" />
+        </video>
+        {/* Dark overlay for better text readability */}
+        <div className="absolute inset-0 bg-black/40"></div>
+      </div>
 
-      {/* Hero Section */}
-      <main className="relative isolate px-6 pt-14 lg:px-8">
-        <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-          <div className="text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-              Discover Events by{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
-                Your Tier
-              </span>
-            </h1>
-            <p className="mt-6 text-lg leading-8 text-gray-600">
-              Access exclusive events based on your membership level. From free community gatherings 
-              to premium platinum experiences, there&apos;s something for every tier.
-            </p>
-            <div className="mt-10 flex items-center justify-center gap-x-6">
-              <SignedIn>
-                <Link href="/dashboard">
-                  <Button size="lg" className="text-base">
-                    View Your Events
-                  </Button>
-                </Link>
-              </SignedIn>
-              <SignedOut>
-                <Link href="/signup">
-                  <Button size="lg" className="text-base">
-                    Get Started
-                  </Button>
-                </Link>
-                <Link href="/login">
-                  <Button variant="outline" size="lg" className="text-base">
-                    Sign In
-                  </Button>
-                </Link>
-              </SignedOut>
+      {/* Content */}
+      <div className="relative z-10 min-h-screen flex flex-col">
+        {/* Minimal Navigation */}
+        <nav className="flex items-center justify-between px-8 py-6 lg:px-12">
+          <div className="flex items-center">
+            <h1 className="text-xl font-medium text-white tracking-wide">Tier Events</h1>
+          </div>
+          <div className="flex items-center gap-6">
+            <SignedIn>
+              <Link href="/dashboard">
+                <Button 
+                  variant="outline" 
+                  className="bg-white/10 border-white/20 text-white hover:bg-white/20 backdrop-blur-sm"
+                >
+                  Dashboard
+                </Button>
+              </Link>
+            </SignedIn>
+            <SignedOut>
+              <Link href="/login">
+                <button className="text-white/80 hover:text-white transition-colors duration-300 text-sm">
+                  Sign In
+                </button>
+              </Link>
+              <Link href="/signup">
+                <Button 
+                  className="bg-white text-black hover:bg-white/90 transition-all duration-300"
+                  size="sm"
+                >
+                  Get Started
+                </Button>
+              </Link>
+            </SignedOut>
+          </div>
+        </nav>
+
+        {/* Hero Section */}
+        <main className="flex-1 flex items-center justify-center px-8 lg:px-12">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="space-y-8">
+              {/* Main Headline */}
+              <div className="space-y-4">
+                <h1 className="text-6xl lg:text-8xl font-light text-white leading-tight tracking-tight">
+                  Premium
+                  <span className="block font-normal">Events</span>
+                </h1>
+                <div className="w-24 h-0.5 bg-white/60 mx-auto"></div>
+              </div>
+
+              {/* Subtitle */}
+              <p className="text-xl lg:text-2xl text-white/80 font-light max-w-2xl mx-auto leading-relaxed">
+                Curated experiences tailored to your membership tier
+              </p>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
+                <SignedIn>
+                  <Link href="/dashboard">
+                    <Button 
+                      size="lg" 
+                      className="bg-white text-black hover:bg-white/90 text-base px-8 py-3 rounded-full transition-all duration-300 min-w-[160px]"
+                    >
+                      View Events
+                    </Button>
+                  </Link>
+                </SignedIn>
+                <SignedOut>
+                  <Link href="/signup">
+                    <Button 
+                      size="lg" 
+                      className="bg-white text-black hover:bg-white/90 text-base px-8 py-3 rounded-full transition-all duration-300 min-w-[160px]"
+                    >
+                      Get Started
+                    </Button>
+                  </Link>
+                  <Link href="/login">
+                    <Button 
+                      variant="outline" 
+                      size="lg" 
+                      className="bg-transparent border-white/30 text-white hover:bg-white/10 text-base px-8 py-3 rounded-full transition-all duration-300 min-w-[160px] backdrop-blur-sm"
+                    >
+                      Sign In
+                    </Button>
+                  </Link>
+                </SignedOut>
+              </div>
+            </div>
+          </div>
+        </main>
+
+        {/* Minimal Tier Indicators */}
+        <div className="pb-12 px-8 lg:px-12">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+              {[
+                { name: 'Free', desc: 'Community Access', color: 'bg-gray-400' },
+                { name: 'Silver', desc: 'Enhanced Experience', color: 'bg-slate-300' },
+                { name: 'Gold', desc: 'VIP Treatment', color: 'bg-yellow-400' },
+                { name: 'Platinum', desc: 'Ultimate Access', color: 'bg-purple-400' }
+              ].map((tier) => (
+                <div key={tier.name} className="text-center space-y-3">
+                  <div className={`w-3 h-3 ${tier.color} rounded-full mx-auto`}></div>
+                  <div>
+                    <h3 className="text-white font-medium text-sm">{tier.name}</h3>
+                    <p className="text-white/60 text-xs mt-1">{tier.desc}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
-
-        {/* Features Section */}
-        <div className="mx-auto max-w-7xl px-6 lg:px-8 pb-24">
-          <div className="mx-auto max-w-2xl lg:text-center">
-            <h2 className="text-base font-semibold leading-7 text-indigo-600">Tier-Based Access</h2>
-            <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              Events tailored to your membership
-            </p>
-          </div>
-          <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
-            <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-4 lg:gap-y-16">
-              <div className="relative pl-16">
-                <dt className="text-base font-semibold leading-7 text-gray-900">
-                  <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100">
-                    <span className="text-sm font-medium">F</span>
-                  </div>
-                  Free Tier
-                </dt>
-                <dd className="mt-2 text-base leading-7 text-gray-600">
-                  Community events and basic networking opportunities.
-                </dd>
-              </div>
-              <div className="relative pl-16">
-                <dt className="text-base font-semibold leading-7 text-gray-900">
-                  <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-slate-100">
-                    <span className="text-sm font-medium">S</span>
-                  </div>
-                  Silver Tier
-                </dt>
-                <dd className="mt-2 text-base leading-7 text-gray-600">
-                  Enhanced workshops and professional development events.
-                </dd>
-              </div>
-              <div className="relative pl-16">
-                <dt className="text-base font-semibold leading-7 text-gray-900">
-                  <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-yellow-100">
-                    <span className="text-sm font-medium">G</span>
-                  </div>
-                  Gold Tier
-                </dt>
-                <dd className="mt-2 text-base leading-7 text-gray-600">
-                  Exclusive conferences and VIP networking sessions.
-                </dd>
-              </div>
-              <div className="relative pl-16">
-                <dt className="text-base font-semibold leading-7 text-gray-900">
-                  <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-purple-100">
-                    <span className="text-sm font-medium">P</span>
-                  </div>
-                  Platinum Tier
-                </dt>
-                <dd className="mt-2 text-base leading-7 text-gray-600">
-                  Premium experiences and direct access to industry leaders.
-                </dd>
-              </div>
-            </dl>
-          </div>
-        </div>
-      </main>
+      </div>
     </div>
   )
 }

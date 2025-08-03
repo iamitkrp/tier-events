@@ -110,24 +110,123 @@ export default function Home() {
           </div>
         </main>
 
-        {/* Minimal Tier Indicators */}
-        <div className="pb-12 px-8 lg:px-12">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+        {/* Premium Tier Showcase */}
+        <div className="pb-16 px-8 lg:px-12">
+          <div className="max-w-7xl mx-auto">
+            {/* Section Header */}
+            <div className="text-center mb-12">
+              <h2 className="text-sm uppercase tracking-[0.2em] text-white/60 font-light">
+                Membership Tiers
+              </h2>
+            </div>
+            
+            {/* Tier Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
-                { name: 'Free', desc: 'Community Access', color: 'bg-gray-400' },
-                { name: 'Silver', desc: 'Enhanced Experience', color: 'bg-slate-300' },
-                { name: 'Gold', desc: 'VIP Treatment', color: 'bg-yellow-400' },
-                { name: 'Platinum', desc: 'Ultimate Access', color: 'bg-purple-400' }
-              ].map((tier) => (
-                <div key={tier.name} className="text-center space-y-3">
-                  <div className={`w-3 h-3 ${tier.color} rounded-full mx-auto`}></div>
-                  <div>
-                    <h3 className="text-white font-medium text-sm">{tier.name}</h3>
-                    <p className="text-white/60 text-xs mt-1">{tier.desc}</p>
+                { 
+                  name: 'Free', 
+                  desc: 'Community Access', 
+                  gradient: 'from-gray-400/20 to-gray-600/20',
+                  border: 'border-gray-400/30',
+                  dot: 'bg-gray-400',
+                  features: ['Basic Events', 'Community Support'],
+                  icon: '👥'
+                },
+                { 
+                  name: 'Silver', 
+                  desc: 'Enhanced Experience', 
+                  gradient: 'from-slate-300/20 to-slate-500/20',
+                  border: 'border-slate-300/30',
+                  dot: 'bg-slate-300',
+                  features: ['Workshop Access', 'Priority Support'],
+                  icon: '⚡'
+                },
+                { 
+                  name: 'Gold', 
+                  desc: 'VIP Treatment', 
+                  gradient: 'from-yellow-400/20 to-yellow-600/20',
+                  border: 'border-yellow-400/30',
+                  dot: 'bg-yellow-400',
+                  features: ['Exclusive Events', 'VIP Networking'],
+                  icon: '✨'
+                },
+                { 
+                  name: 'Platinum', 
+                  desc: 'Ultimate Access', 
+                  gradient: 'from-purple-400/20 to-purple-600/20',
+                  border: 'border-purple-400/30',
+                  dot: 'bg-purple-400',
+                  features: ['Private Events', 'One-on-One Access'],
+                  icon: '👑'
+                }
+              ].map((tier, index) => (
+                <div 
+                  key={tier.name} 
+                  className={`
+                    group relative overflow-hidden rounded-2xl bg-gradient-to-br ${tier.gradient} 
+                    border ${tier.border} backdrop-blur-sm transition-all duration-500 
+                    hover:scale-105 hover:bg-white/5 cursor-pointer
+                  `}
+                >
+                  {/* Card Content */}
+                  <div className="p-6 h-full flex flex-col">
+                    {/* Header */}
+                    <div className="flex items-center justify-between mb-4">
+                      <div className={`w-2 h-2 ${tier.dot} rounded-full`}></div>
+                      <span className="text-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-300">
+                        {tier.icon}
+                      </span>
+                    </div>
+                    
+                    {/* Tier Info */}
+                    <div className="flex-1">
+                      <h3 className="text-white font-medium text-lg mb-1 group-hover:text-white transition-colors">
+                        {tier.name}
+                      </h3>
+                      <p className="text-white/60 text-sm mb-4 group-hover:text-white/80 transition-colors">
+                        {tier.desc}
+                      </p>
+                      
+                      {/* Features */}
+                      <div className="space-y-2">
+                        {tier.features.map((feature, featureIndex) => (
+                          <div 
+                            key={featureIndex}
+                            className="flex items-center space-x-2 text-white/50 group-hover:text-white/70 transition-colors"
+                          >
+                            <div className="w-1 h-1 bg-current rounded-full"></div>
+                            <span className="text-xs font-light">{feature}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    {/* Tier Number */}
+                    <div className="mt-6 pt-4 border-t border-white/10">
+                      <span className="text-white/40 text-xs font-light">
+                        Tier {index + 1} of 4
+                      </span>
+                    </div>
+                  </div>
+                  
+                  {/* Hover Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                  
+                  {/* Progress Bar */}
+                  <div className="absolute bottom-0 left-0 w-full h-0.5 bg-white/10">
+                    <div 
+                      className={`h-full ${tier.dot} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left`}
+                    ></div>
                   </div>
                 </div>
               ))}
+            </div>
+            
+            {/* Bottom CTA */}
+            <div className="text-center mt-12">
+              <p className="text-white/40 text-xs font-light">
+                Each tier unlocks access to previous tier benefits
+              </p>
             </div>
           </div>
         </div>

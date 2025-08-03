@@ -37,22 +37,22 @@ export default function Home() {
           </div>
           <div className="flex items-center gap-8">
             <Link href="/about">
-              <button className="text-black/70 hover:text-black transition-colors duration-300 text-sm">
+              <button className="text-black/70 hover:text-black transition-colors duration-300 text-sm cursor-pointer">
                 About Us
               </button>
             </Link>
             <Link href="/what-we-do">
-              <button className="text-black/70 hover:text-black transition-colors duration-300 text-sm">
+              <button className="text-black/70 hover:text-black transition-colors duration-300 text-sm cursor-pointer">
                 What We Do
               </button>
             </Link>
             <Link href="/privacy">
-              <button className="text-black/70 hover:text-black transition-colors duration-300 text-sm">
+              <button className="text-black/70 hover:text-black transition-colors duration-300 text-sm cursor-pointer">
                 Privacy Policy
               </button>
             </Link>
             <Link href="/help">
-              <button className="text-black/70 hover:text-black transition-colors duration-300 text-sm">
+              <button className="text-black/70 hover:text-black transition-colors duration-300 text-sm cursor-pointer">
                 Help
               </button>
             </Link>

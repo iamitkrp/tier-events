@@ -56,3 +56,14 @@ export function getNextTier(currentTier: TierType): TierType | null {
   
   return nextTier ? nextTier[0] as TierType : null;
 }
+
+/**
+ * Gets the previous tier in hierarchy
+ */
+export function getPreviousTier(currentTier: TierType): TierType | null {
+  const currentLevel = TIER_HIERARCHY[currentTier];
+  const previousTier = Object.entries(TIER_HIERARCHY)
+    .find(([, level]) => level === currentLevel - 1);
+  
+  return previousTier ? previousTier[0] as TierType : null;
+}

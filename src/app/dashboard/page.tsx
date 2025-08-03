@@ -6,8 +6,8 @@ import { EventCard } from '@/components/EventCard'
 import { TierBadge } from '@/components/TierBadge'
 import { Button } from '@/components/ui/button'
 import { supabase, type Event } from '@/lib/supabase'
-import { canAccessTier, getNextTier, type TierType } from '@/lib/tierUtils'
-import { Loader2, Plus, Settings, User, LogOut, Crown } from 'lucide-react'
+import { canAccessTier, getNextTier, getPreviousTier, type TierType } from '@/lib/tierUtils'
+import { Loader2, Plus, Settings, User, LogOut, Crown, ChevronDown } from 'lucide-react'
 import Link from 'next/link'
 
 export default function DashboardPage() {
@@ -21,6 +21,7 @@ export default function DashboardPage() {
   // Get user tier from Clerk metadata, default to 'free'
   const userTier = ((user?.publicMetadata as Record<string, unknown>)?.tier || (user?.unsafeMetadata as Record<string, unknown>)?.tier) as TierType || 'free'
   const nextTier = getNextTier(userTier)
+  const previousTier = getPreviousTier(userTier)
 
   useEffect(() => {
     async function fetchEvents() {
@@ -166,6 +167,25 @@ export default function DashboardPage() {
     }
   }
 
+  const handleDowngradeTier = async () => {
+    if (!user || !previousTier) return
+
+    try {
+      // Simulate tier downgrade by updating Clerk metadata
+      await user.update({
+        unsafeMetadata: {
+          ...user.unsafeMetadata,
+          tier: previousTier
+        }
+      } as Parameters<typeof user.update>[0])
+      
+      // Refresh the page to show new events
+      window.location.reload()
+    } catch (err) {
+      console.error('Error downgrading tier:', err)
+    }
+  }
+
   // Filter events based on user tier
   const accessibleEvents = events.filter(event => canAccessTier(userTier, event.tier))
   const lockedEvents = events.filter(event => !canAccessTier(userTier, event.tier))
@@ -246,16 +266,30 @@ export default function DashboardPage() {
                           <TierBadge tier={userTier} />
                         </div>
                         
-                        {nextTier && (
-                          <Button
-                            onClick={handleUpgradeTier}
-                            className="w-full"
-                            size="sm"
-                          >
-                            <Crown className="h-4 w-4 mr-2" />
-                            Upgrade to {nextTier.charAt(0).toUpperCase() + nextTier.slice(1)}
-                          </Button>
-                        )}
+                        <div className="space-y-2">
+                          {nextTier && (
+                            <Button
+                              onClick={handleUpgradeTier}
+                              className="w-full"
+                              size="sm"
+                            >
+                              <Crown className="h-4 w-4 mr-2" />
+                              Upgrade to {nextTier.charAt(0).toUpperCase() + nextTier.slice(1)}
+                            </Button>
+                          )}
+                          
+                          {previousTier && (
+                            <Button
+                              onClick={handleDowngradeTier}
+                              variant="outline"
+                              className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50 border-orange-200"
+                              size="sm"
+                            >
+                              <ChevronDown className="h-4 w-4 mr-2" />
+                              Downgrade to {previousTier.charAt(0).toUpperCase() + previousTier.slice(1)}
+                            </Button>
+                          )}
+                        </div>
                         
                         <hr className="my-2" />
                         

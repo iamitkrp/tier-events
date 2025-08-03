@@ -1,3 +1,12 @@
+/**
+ * Tier Management Utilities
+ * Functions for handling user tiers and access control
+ * 
+ * Author: Amit Kumar Pandey
+ * Website: https://amitkp.com
+ * GitHub: https://github.com/iamitkrp
+ */
+
 export type TierType = 'free' | 'silver' | 'gold' | 'platinum';
 
 // Tier hierarchy for comparison

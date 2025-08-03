@@ -4,8 +4,8 @@ A modern, full-stack web application that provides tier-based access to exclusiv
 
 ## 🚀 Live Demo
 
-- **Deployed Application**: [Coming Soon - Deploy to Vercel]
-- **GitHub Repository**: [Current Repository]
+- **Deployed Application**: [Deploy to Vercel →](https://vercel.com/new/clone?repository-url=https://github.com/YOUR_USERNAME/tier-events)
+- **GitHub Repository**: Ready for deployment
 
 ## 🎯 Project Overview
 

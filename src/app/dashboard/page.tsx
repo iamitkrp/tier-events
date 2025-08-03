@@ -374,7 +374,7 @@ export default function DashboardPage() {
         <div className="relative z-10 min-h-screen flex items-center justify-center">
           <div className="text-center bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-black/10">
             <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4 text-black" />
-            <p className="text-black/70 font-light">Loading your premium events...</p>
+            <p className="text-black/70 font-light">Loading your events...</p>
           </div>
         </div>
       </div>

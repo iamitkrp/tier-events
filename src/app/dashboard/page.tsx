@@ -1,3 +1,12 @@
+/**
+ * Tier Events - Dashboard Page
+ * Main dashboard for viewing tier-based events with glassmorphism design
+ * 
+ * Author: Amit Kumar Pandey
+ * Website: https://amitkp.com
+ * GitHub: https://github.com/iamitkrp
+ */
+
 'use client'
 
 import { useEffect, useState } from 'react'
@@ -617,6 +626,23 @@ export default function DashboardPage() {
             </Button>
           </div>
         )}
+
+        {/* Footer Attribution */}
+        <div className="mt-16 pt-8 border-t border-black/10">
+          <div className="text-center">
+            <p className="text-black/50 text-xs font-light">
+              Made by -{' '}
+              <a 
+                href="https://amitkp.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-black/70 hover:text-black transition-colors duration-300 cursor-pointer"
+              >
+                Amit
+              </a>
+            </p>
+          </div>
+        </div>
       </main>
       </div>
     </div>

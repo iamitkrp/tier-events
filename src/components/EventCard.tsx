@@ -1,5 +1,13 @@
-'use client'
+/**
+ * EventCard Component
+ * Displays individual event cards with glassmorphism effects
+ * 
+ * Author: Amit Kumar Pandey
+ * Website: https://amitkp.com
+ * GitHub: https://github.com/iamitkrp
+ */
 
+'use client'
 
 import { TierBadge } from '@/components/TierBadge'
 import { type Event } from '@/lib/supabase'

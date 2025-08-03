@@ -1,3 +1,12 @@
+/**
+ * Tier Events - Landing Page
+ * A premium event management platform with tier-based access
+ * 
+ * Author: Amit Kumar Pandey
+ * Website: https://amitkp.com
+ * GitHub: https://github.com/iamitkrp
+ */
+
 import { SignedIn, SignedOut } from '@clerk/nextjs'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
@@ -224,6 +233,21 @@ export default function Home() {
               </p>
             </div>
           </div>
+        </div>
+
+        {/* Footer Attribution */}
+        <div className="absolute bottom-4 right-4 z-20">
+          <p className="text-black/50 text-xs font-light">
+            Made by -{' '}
+            <a 
+              href="https://amitkp.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-black/70 hover:text-black transition-colors duration-300 cursor-pointer"
+            >
+              Amit
+            </a>
+          </p>
         </div>
       </div>
     </div>

@@ -1,3 +1,12 @@
+/**
+ * About Us Page
+ * Information about Tier Events platform
+ * 
+ * Author: Amit Kumar Pandey
+ * Website: https://amitkp.com
+ * GitHub: https://github.com/iamitkrp
+ */
+
 import Link from 'next/link'
 
 export default function AboutPage() {

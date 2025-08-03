@@ -1,5 +1,14 @@
 import Link from 'next/link'
 
+/**
+ * Privacy Policy Page
+ * Privacy information and data handling policies
+ * 
+ * Author: Amit Kumar Pandey
+ * Website: https://amitkp.com
+ * GitHub: https://github.com/iamitkrp
+ */
+
 export default function PrivacyPage() {
   return (
     <div className="relative min-h-screen overflow-hidden">

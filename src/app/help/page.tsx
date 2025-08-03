@@ -1,5 +1,14 @@
 import Link from 'next/link'
 
+/**
+ * Help Center Page
+ * FAQ and support information for users
+ * 
+ * Author: Amit Kumar Pandey
+ * Website: https://amitkp.com
+ * GitHub: https://github.com/iamitkrp
+ */
+
 export default function HelpPage() {
   return (
     <div className="relative min-h-screen overflow-hidden">

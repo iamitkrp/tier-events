@@ -1,5 +1,14 @@
 import Link from 'next/link'
 
+/**
+ * What We Do Page
+ * Detailed information about services across different tiers
+ * 
+ * Author: Amit Kumar Pandey
+ * Website: https://amitkp.com
+ * GitHub: https://github.com/iamitkrp
+ */
+
 export default function WhatWeDoPage() {
   return (
     <div className="relative min-h-screen overflow-hidden">

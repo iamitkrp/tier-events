@@ -15,6 +15,7 @@ export type Database = {
           description: string
           event_date: string
           image_url: string | null
+          location: string | null
           tier: 'free' | 'silver' | 'gold' | 'platinum'
           created_at: string
         }
@@ -24,6 +25,7 @@ export type Database = {
           description: string
           event_date: string
           image_url?: string | null
+          location?: string | null
           tier: 'free' | 'silver' | 'gold' | 'platinum'
           created_at?: string
         }
@@ -33,6 +35,7 @@ export type Database = {
           description?: string
           event_date?: string
           image_url?: string | null
+          location?: string | null
           tier?: 'free' | 'silver' | 'gold' | 'platinum'
           created_at?: string
         }

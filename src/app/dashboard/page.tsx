@@ -298,7 +298,7 @@ export default function DashboardPage() {
                 </Button>
                 
                 {showSettings && (
-                  <div className="absolute right-0 mt-2 w-64 bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-black/10 z-[60]">
+                  <div className="fixed right-4 top-20 w-64 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-black/10 z-[9999]">
                     <div className="p-4">
                       <div className="flex items-center gap-3 mb-4">
                         <div className="w-10 h-10 bg-black/10 rounded-full flex items-center justify-center">
